@@ -19,6 +19,8 @@ Jogo casual de quebra-cabeça desenvolvido em **C** para a disciplina de **PIF �
 
 ## 🕹️ Controles
 
+<div align="center">
+  
 | Tecla | Ação                |
 |:-----:|---------------------|
 | `W`   | Mover para cima     |
@@ -27,6 +29,8 @@ Jogo casual de quebra-cabeça desenvolvido em **C** para a disciplina de **PIF �
 | `D`   | Mover para direita  |
 | `R`   | Reiniciar a fase    |
 | `Q`   | Sair do jogo        |
+
+</div>
 
 ---
 
@@ -44,6 +48,6 @@ Jogo casual de quebra-cabeça desenvolvido em **C** para a disciplina de **PIF �
 
 ---
 
-## 📄 Licença
+### 📄 Licença
 
-Projeto acadêmico, desenvolvido para fins educacionais.
+Projeto acadêmico, desenvolvido para fins educacionais ©. 
