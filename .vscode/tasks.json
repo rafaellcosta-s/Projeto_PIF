@@ -1,0 +1,39 @@
+// =====================================================================
+// .vscode/tasks.json
+//
+// Define "tarefas" do VS Code: comandos que ele roda por um atalho.
+// Aqui existe uma só, que compila e abre o jogo com Ctrl+Shift+B.
+// É só um atalho: faz exatamente o mesmo que digitar "make run" no
+// terminal. A compilação de verdade continua sendo feita pelo Makefile.
+// =====================================================================
+{
+    // Versão do formato deste arquivo exigida pelo VS Code.
+    "version": "2.0.0",
+
+    // Lista de tarefas (pode ter várias; aqui só usamos uma).
+    "tasks": [
+        {
+            // Nome que aparece no menu Terminal > Executar Tarefa.
+            "label": "Compilar e rodar Push Block",
+
+            // "shell" = roda o comando no terminal, como se fosse digitado.
+            "type": "shell",
+
+            // O comando em si: chama a regra "run" do Makefile.
+            "command": "make run",
+
+            // Pasta onde o comando roda: a raiz do projeto aberta no
+            // VS Code. Precisa ser a raiz porque é lá que está o Makefile
+            // e é de lá que o jogo acha as pastas fases/ e dados/.
+            "options": { "cwd": "${workspaceFolder}" },
+
+            // Marca esta tarefa como a tarefa de compilação padrão.
+            // É isso que faz o Ctrl+Shift+B rodar ela direto.
+            "group": { "kind": "build", "isDefault": true },
+
+            // Lê as mensagens de erro do gcc e mostra na aba "Problemas",
+            // com link para a linha do arquivo onde o erro aconteceu.
+            "problemMatcher": ["$gcc"]
+        }
+    ]
+}

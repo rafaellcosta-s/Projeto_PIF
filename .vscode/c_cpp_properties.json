@@ -1,0 +1,34 @@
+// =====================================================================
+// .vscode/c_cpp_properties.json
+//
+// Configura a extensão C/C++ do VS Code (o "IntelliSense", que sublinha
+// erros e completa nomes de função enquanto se digita). Não muda nada
+// na compilação: quem compila é o gcc chamado pelo Makefile. Sem este
+// arquivo, o VS Code sublinha #include "raylib.h" de vermelho porque
+// não sabe onde ele está, mesmo o jogo compilando normalmente.
+// =====================================================================
+{
+    "configurations": [
+        {
+            // Nome desta configuração (aparece no canto inferior direito).
+            "name": "PushBlock",
+
+            // Pastas onde o VS Code procura os arquivos .h dos #include:
+            // a nossa pasta include/ e a pasta da raylib.
+            "includePath": [
+                "${workspaceFolder}/include",
+                "${workspaceFolder}/libs/raylib/include"
+            ],
+
+            // Mesmo padrão da linguagem C usado no Makefile (-std=c11).
+            "cStandard": "c11",
+
+            // Avisa que o compilador é o gcc 64 bits, para o VS Code
+            // analisar o código do mesmo jeito que o gcc vai analisar.
+            "intelliSenseMode": "gcc-x64"
+        }
+    ],
+
+    // Versão do formato deste arquivo exigida pela extensão.
+    "version": 4
+}

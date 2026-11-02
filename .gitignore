@@ -1,0 +1,7 @@
+# Arquivos que o Git ignora (não vão para o GitHub)
+
+# Pasta do executável: é gerada de novo a cada "make"
+build/
+
+# Ranking de cada computador: cada um tem o seu
+dados/ranking.txt
