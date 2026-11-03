@@ -45,8 +45,8 @@ O jogo é escrito em C e usa a biblioteca [raylib](https://github.com/raysan5/ra
 
 - `git`, `gcc` e `make`
 - **Windows:** [w64devkit](#-windows-passo-a-passo)
-- **Linux (Ubuntu/Debian):** `sudo apt install build-essential git libx11-dev libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev libgl1-mesa-dev`
-- **macOS:** `xcode-select --install`
+- **Linux:** [pacotes de desenvolvimento](#-linux-passo-a-passo)
+- **macOS:** [Xcode Command Line Tools](#-macos-passo-a-passo)
 
 ### 🪟 Windows: passo a passo
 
@@ -69,6 +69,55 @@ O Makefile usa comandos como `mkdir -p` e `rm -f`, que o Windows não tem. O **w
    ```
 
 > Se preferir não mexer no PATH, abra o `w64devkit.exe` (um terminal pronto que vem na pasta) e rode os comandos abaixo dentro dele.
+
+### 🐧 Linux: passo a passo
+
+No Linux, a raylib é compilada a partir do código-fonte e precisa dos arquivos de desenvolvimento do sistema de janelas (X11) e do OpenGL.
+
+1. Instale o compilador e as bibliotecas. No **Ubuntu/Debian**:
+
+   ```bash
+   sudo apt update
+   sudo apt install build-essential git libx11-dev libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev libgl1-mesa-dev
+   ```
+
+   - `build-essential` traz o `gcc` e o `make`
+   - os pacotes `libx...-dev` são o sistema de janelas e de teclado/mouse
+   - `libgl1-mesa-dev` é o OpenGL, usado para desenhar
+
+   Em outras distribuições, instale os pacotes equivalentes (X11, Xrandr, Xinerama, Xcursor, Xi e OpenGL com os arquivos de desenvolvimento).
+
+2. Confira se deu certo:
+
+   ```bash
+   gcc --version
+   make --version
+   ```
+
+3. Siga para [Clonar o repositório](#clonar-o-repositório) e [Compilar e rodar](#compilar-e-rodar).
+
+> **WSL (Windows):** no Windows 11, o WSL com Ubuntu também funciona: rode os mesmos comandos dentro do terminal do Ubuntu e a janela do jogo abre no Windows (pelo WSLg).
+
+### 🍎 macOS: passo a passo
+
+1. Instale as ferramentas de linha de comando da Apple (traz `git`, `make` e o compilador):
+
+   ```bash
+   xcode-select --install
+   ```
+
+   Vai abrir uma janela pedindo para instalar: clique em **Instalar** e espere terminar.
+
+2. Confira se deu certo:
+
+   ```bash
+   gcc --version
+   make --version
+   ```
+
+   No macOS, o comando `gcc` na verdade chama o **clang** (o compilador da Apple), então aparecer "Apple clang" é normal e funciona igual.
+
+3. Siga para [Clonar o repositório](#clonar-o-repositório) e [Compilar e rodar](#compilar-e-rodar).
 
 ### Clonar o repositório
 
