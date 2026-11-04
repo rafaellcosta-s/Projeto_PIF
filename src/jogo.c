@@ -151,3 +151,71 @@ static int temCaixa(char c)
 {
     return c == CAIXA || c == CAIXA_NO_DESTINO;
 }
+
+/* Coloca um objeto (CAIXA, JOGADOR ou CHAO para esvaziar) na célula,
+   sem perder a informação de destino que já estava nela. Exemplo:
+   colocar CAIXA numa célula DESTINO resulta em CAIXA_NO_DESTINO. */
+static void colocar(char *cel, Celula objeto)
+{
+    int dest = temDestino(*cel);
+    if (objeto == CAIXA)
+        *cel = dest ? CAIXA_NO_DESTINO : CAIXA;
+    else if (objeto == JOGADOR)
+        *cel = dest ? JOGADOR_NO_DESTINO : JOGADOR;
+    else
+        *cel = dest ? DESTINO : CHAO;
+}
+
+/* Tenta mover o jogador uma casa na direção (dl, dc).
+   Tratamento de colisão:
+     - parede (ou fora do mapa) na frente: não anda;
+     - caixa na frente: só anda se a casa DEPOIS da caixa estiver livre
+       (sem parede e sem outra caixa); aí a caixa é empurrada junto.
+   Cada movimento feito vira um nó novo no início da lista do histórico. */
+int mover(Jogo *j, int dl, int dc){
+    char *origem = celula(j, j->jogadorL, j->jogadorC);
+    char *dest = celula(j, j->jogadorL + dl, j->jogadorC + dc);
+    char alem = NULL;              / casa depois da caixa */
+    Jogada *nova;
+    int empurrou = 0;
+
+    /* colisão com parede ou borda */
+    if (dest == NULL || *dest == PAREDE)
+        return 0;
+
+    /* colisão com caixa: verifica se dá para empurrar */
+    if (temCaixa(*dest)) {
+        alem = celula(j, j->jogadorL + 2 * dl, j->jogadorC + 2 * dc);
+        if (alem == NULL || *alem == PAREDE || temCaixa(*alem))
+            return 0;               /* caixa travada: ninguém se mexe */
+        empurrou = 1;
+    }
+       /* cria o nó da jogada antes de mexer no mapa: se faltar memória,
+       nada muda e o jogo continua consistente */
+    nova = malloc(sizeof *nova);
+    if (nova == NULL)
+        return 0;
+
+    /* atualiza o mapa: caixa vai para frente, jogador sai e entra */
+    if (empurrou)
+        colocar(alem, CAIXA);
+    colocar(origem, CHAO);
+    colocar(dest, JOGADOR);
+    j->jogadorL += dl;
+    j->jogadorC += dc;
+    j->movimentosFase++;
+
+    /* empilha a jogada: o novo nó aponta para o antigo primeiro */
+    nova->dl = dl;
+    nova->dc = dc;
+    nova->empurrou = empurrou;
+    nova->proxima = j->historico;
+    j->historico = nova;
+
+    /* começa a animação deste passo do zero */
+    j->anim.dl = dl;
+    j->anim.dc = dc;
+    j->anim.empurrou = empurrou;
+    j->anim.progresso = 0.0f;
+    return 1;
+}
