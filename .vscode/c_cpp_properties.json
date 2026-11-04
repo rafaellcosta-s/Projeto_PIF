@@ -17,7 +17,7 @@
             // a nossa pasta include/ e a pasta da raylib.
             "includePath": [
                 "${workspaceFolder}/include",
-                "${workspaceFolder}/libs/raylib/include"
+                "${workspaceFolder}/libs/raylib/src"
             ],
 
             // Mesmo padrão da linguagem C usado no Makefile (-std=c11).

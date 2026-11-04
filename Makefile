@@ -70,7 +70,7 @@ else
     BIN = build/pushblock
     ifeq ($(UNAME),Darwin)
         # macOS: bibliotecas de vídeo e janela da Apple (frameworks)
-        LIBS = -L$(RAYLIB_DIR) -lraylib -framework OpenGL -framework Cocoa -framework IOKit -framework CoreVideo
+        LIBS = -L$(RAYLIB_DIR) -lraylib -framework OpenGL -framework Cocoa -framework IOKit -framework CoreAudio -framework CoreVideo -framework QuartzCore
     else
         # Linux: vídeo (GL, X11), matemática (m) e threads
         LIBS = -L$(RAYLIB_DIR) -lraylib -lGL -lm -lpthread -ldl -lrt -lX11
