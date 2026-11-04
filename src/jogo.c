@@ -129,3 +129,25 @@ int carregarFase(Jogo *j, int fase)
     j->anim.progresso = 1.0f;       /* começa parado, sem animação */
     return 1;
 }
+
+/* Devolve o ENDEREÇO da célula (l, c) do mapa, ou NULL se a posição
+   estiver fora do mapa. Devolver um ponteiro permite que quem chamou
+   leia e também altere a célula. */
+static char *celula(const Jogo *j, int l, int c)
+{
+    if (l < 0 || l >= j->linhas || c < 0 || c >= j->colunas)
+        return NULL;
+    return &j->mapa[l][c];
+}
+
+/* A célula tem destino? (vazio, com caixa ou com o jogador em cima) */
+static int temDestino(char c)
+{
+    return c == DESTINO || c == CAIXA_NO_DESTINO || c == JOGADOR_NO_DESTINO;
+}
+
+/* A célula tem caixa? (fora do destino ou em cima de um destino) */
+static int temCaixa(char c)
+{
+    return c == CAIXA || c == CAIXA_NO_DESTINO;
+}
