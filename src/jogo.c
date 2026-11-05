@@ -175,7 +175,7 @@ static void colocar(char *cel, Celula objeto)
 int mover(Jogo *j, int dl, int dc){
     char *origem = celula(j, j->jogadorL, j->jogadorC);
     char *dest = celula(j, j->jogadorL + dl, j->jogadorC + dc);
-    char alem = NULL;              / casa depois da caixa */
+    char *alem = NULL;              /* casa depois da caixa */
     Jogada *nova;
     int empurrou = 0;
 
