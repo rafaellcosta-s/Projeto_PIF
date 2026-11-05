@@ -219,3 +219,61 @@ int mover(Jogo *j, int dl, int dc){
     j->anim.progresso = 0.0f;
     return 1;
 }
+
+/* Desfaz a última jogada: tira o primeiro nó da lista e faz o
+   movimento ao contrário (jogador volta e, se tinha empurrado,
+   a caixa volta para onde o jogador estava). */
+int desfazer(Jogo *j)
+{
+    Jogada *ultima = j->historico;
+    int l = j->jogadorL;
+    int c = j->jogadorC;
+
+    if (ultima == NULL)
+        return 0;                   /* nada para desfazer */
+
+    colocar(&j->mapa[l][c], CHAO);  /* jogador sai da posição atual */
+    if (ultima->empurrou) {
+        /* a caixa está na casa à frente do jogador: volta uma casa */
+        colocar(&j->mapa[l + ultima->dl][c + ultima->dc], CHAO);
+        colocar(&j->mapa[l][c], CAIXA);
+    }
+    j->jogadorL = l - ultima->dl;   /* jogador volta uma casa */
+    j->jogadorC = c - ultima->dc;
+    colocar(&j->mapa[j->jogadorL][j->jogadorC], JOGADOR);
+    j->movimentosFase--;
+
+    /* desempilha: o início da lista passa a ser o nó seguinte */
+    j->historico = ultima->proxima;
+    free(ultima);
+
+    j->anim.progresso = 1.0f;       /* desfazer não anima */
+    return 1;
+}
+
+/* A fase termina quando nenhuma linha tem CAIXA (caixa fora do destino).
+   strchr procura um caractere numa string e devolve NULL se não achar. */
+int faseVencida(const Jogo *j)
+{
+    for (int l = 0; l < j->linhas; l++)
+        if (strchr(j->mapa[l], CAIXA) != NULL)
+            return 0;
+    return 1;
+}
+
+/* Avança a animação proporcionalmente ao tempo que passou. Com
+   DURACAO_PASSO = 0.12 s, o progresso vai de 0 a 1 em 0,12 segundo,
+   não importa quantos quadros por segundo o computador consiga. */
+void atualizarAnimacao(Jogo *j, float dt)
+{
+    if (j->anim.progresso < 1.0f) {
+        j->anim.progresso += dt / DURACAO_PASSO;
+        if (j->anim.progresso > 1.0f)
+            j->anim.progresso = 1.0f;
+    }
+}
+
+int animando(const Jogo *j)
+{
+    return j->anim.progresso < 1.0f;
+}
