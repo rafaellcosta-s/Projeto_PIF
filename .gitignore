@@ -5,3 +5,6 @@ build/
 
 # Ranking de cada computador: cada um tem o seu
 dados/ranking.txt
+
+# Configuração local do VS Code (a extensão CMake cria sozinha)
+.vscode/settings.json
