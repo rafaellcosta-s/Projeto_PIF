@@ -130,13 +130,13 @@ int main(void)
                 carregarFase(&jogo, jogo.fase);      /* reinicia a fase */
             } else if (apertou(KEY_U)) {
                 desfazer(&jogo);
-            } else if (lerDirecao(&dl, &dc, 0)) {
+            } else if (!faseVencida(&jogo) && lerDirecao(&dl, &dc, 0)) {
                 /* tecla acabou de ser apertada: se ainda estava animando
                    o passo anterior, termina ele na hora e já anda de novo,
                    para nenhum toque rápido ser perdido */
                 jogo.anim.progresso = 1.0f;
                 mover(&jogo, dl, dc);
-            } else if (!animando(&jogo) && lerDirecao(&dl, &dc, 1)) {
+            } else if (!animando(&jogo) && !faseVencida(&jogo) && lerDirecao(&dl, &dc, 1)) {
                 /* tecla segurada: anda de novo assim que o passo acabar */
                 mover(&jogo, dl, dc);
             }
