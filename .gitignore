@@ -8,3 +8,4 @@ dados/ranking.txt
 
 # Configuração local do VS Code (a extensão CMake cria sozinha)
 .vscode/settings.json
+.vscode/settings.local.json
