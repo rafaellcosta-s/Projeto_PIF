@@ -47,8 +47,41 @@ Jogo casual de quebra-cabeça desenvolvido em **C** para a disciplina de **PIF �
 
 ## 🛠️ Como compilar e jogar
 
-O passo a passo completo para **Windows, Linux e macOS** (instalação das ferramentas, como clonar com o submódulo da raylib e como compilar) está em **[COMPILAR.md](COMPILAR.md)**.
+### 1. Requisitos
 
+Você precisa de `git`, `gcc` e `make`:
+
+| Sistema | Como instalar |
+|---|---|
+| **Windows** | [w64devkit](https://github.com/skeeto/w64devkit/releases) extraído em `C:\w64devkit`, com `C:\w64devkit\bin` no PATH |
+| **Linux** (Ubuntu/Debian) | `sudo apt install build-essential git libx11-dev libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev libgl1-mesa-dev` |
+| **macOS** | `xcode-select --install` |
+
+Para conferir, `gcc --version` e `make --version` precisam mostrar uma versão.
+
+### 2. Baixar, compilar e jogar
+
+```bash
+git clone --recurse-submodules --shallow-submodules https://github.com/rafaellcosta-s/Projeto_PIF.git
+cd Projeto_PIF
+make run
+```
+
+Pronto: a janela do jogo abre. Na **primeira vez**, o `make` também compila a raylib (biblioteca usada para a janela e o desenho), por isso demora um pouco mais. Nas próximas, compila só o jogo.
+
+> **Já clonou sem `--recurse-submodules`?** A pasta `libs/raylib` fica vazia. Rode `git submodule update --init --depth 1` e depois `make run`.
+
+### 3. Comandos do Makefile
+
+| Comando | O que faz |
+|---|---|
+| `make run` | Compila (se precisar) e abre o jogo |
+| `make` | Só compila: gera `build/pushblock` (`build/pushblock.exe` no Windows) |
+| `make clean` | Apaga o executável |
+
+No VS Code, `Ctrl+Shift+B` faz o mesmo que `make run`.
+
+O passo a passo detalhado de cada sistema (instalação do w64devkit, PATH, WSL) está em **[COMPILAR.md](COMPILAR.md)**.
 ---
 
 ## 🧰 Tecnologias
