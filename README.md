@@ -82,6 +82,7 @@ Pronto: a janela do jogo abre. Na **primeira vez**, o `make` também compila a r
 No VS Code, `Ctrl+Shift+B` faz o mesmo que `make run`.
 
 O passo a passo detalhado de cada sistema (instalação do w64devkit, PATH, WSL) está em **[COMPILAR.md](COMPILAR.md)**.
+
 ---
 
 ## 🧰 Tecnologias
@@ -89,6 +90,34 @@ O passo a passo detalhado de cada sistema (instalação do w64devkit, PATH, WSL)
 - **Linguagem C** (padrão C11), compilada com `gcc` e `make`
 - **[raylib](https://github.com/raysan5/raylib) 6.2** para janela, teclado e desenho, incluída como submódulo Git
 - Funciona em **Windows, Linux e macOS**
+
+---
+
+### 📄 Licença
+
+Projeto acadêmico, desenvolvido para fins educacionais ©.
+
+---
+
+### Problemas comuns
+
+- **Windows: "Uma política de Controle de Aplicativo bloqueou este arquivo"** ou erro `Invalid argument` ao rodar `make run`: é o **Smart App Control** do Windows 11, que bloqueia qualquer programa sem assinatura digital, incluindo executáveis compilados na própria máquina. O jogo compila normalmente; para rodar, é preciso desativar o Smart App Control (Segurança do Windows > Controle de aplicativos e navegador) ou usar o WSL/Linux.
+- **"Nao achei fases/fase1.txt"**: o jogo precisa ser executado a partir da pasta do projeto (o `make run` já faz isso).
+
+---
+
+## 📁 Estrutura do projeto
+
+| Arquivo / pasta | O que faz |
+|---|---|
+| `src/main.c` | Abre a janela e roda o laço do jogo (teclado, atualização e desenho), controlando as telas com o `enum Estado` |
+| `src/jogo.c` + `include/jogo.h` | Regras: carregar fase do arquivo, mover com colisão, empurrar caixa, desfazer e animação |
+| `src/ranking.c` + `include/ranking.h` | Ranking (top scores): lista encadeada ordenada, lida e gravada em arquivo |
+| `src/tela.c` + `include/tela.h` | Desenho de todas as telas com a raylib |
+| `fases/` | Mapas das fases em texto (`fase1.txt`, `fase2.txt`, `fase3.txt`) |
+| `dados/` | Onde o jogo grava o `ranking.txt` |
+| `libs/raylib/` | Biblioteca raylib 6.2 (submódulo Git) |
+| `Makefile` | Compilação do projeto (`make`, `make run`, `make clean`) |
 
 ---
 
@@ -106,6 +135,8 @@ O passo a passo detalhado de cada sistema (instalação do w64devkit, PATH, WSL)
 
 ---
 
-### 📄 Licença
+## 🎬 Vídeo do jogo
 
-Projeto acadêmico, desenvolvido para fins educacionais ©.
+[![Push Block rodando](https://img.youtube.com/vi/IHSurbZrvVk/0.jpg)](https://youtu.be/IHSurbZrvVk)
+
+Link direto: https://youtu.be/IHSurbZrvVk
